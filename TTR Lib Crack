@@ -6,8 +6,19 @@ local windows = {}
 local pastSliders = {}
 local dropdowns = {}
 local dropdownSizes = {}
+local destroyed
 
 local colorPickers = {}
+
+if game.CoreGui:FindFirstChild('crackTurtleUiLib') then
+    game.CoreGui:FindFirstChild('crackTurtleUiLib'):Destroy()
+    destroyed = true
+end
+
+function Lerp(a, b, c)
+    return a + ((b - a) * c)
+end
+
 local players = game:service('Players');
 local player = players.LocalPlayer;
 local mouse = player:GetMouse();
@@ -42,17 +53,38 @@ function Dragify(obj)
 end)
 end
 
--- InstancesNew:
+-- Instances:
 
+local function protect_gui(obj) 
+if destroyed then
+   print"cracked"
+end
+if syn and syn.protect_gui then
+	syn.protect_gui(obj)
+		print"cracked EZ"
+	end
+end
 local TurtleUiLib = Instance.new("ScreenGui")
 
 TurtleUiLib.Name = "TurtleUiLib"
+
+protect_gui(TurtleUiLib)
 
 local xOffset = 20
 
 local uis = game:GetService("UserInputService")
 
 local keybindConnection
+
+function library:Destroy()
+    TurtleUiLib:Destroy()
+    if keybindConnection then
+        keybindConnection:Disconnect()
+    end
+end
+function library:Hide()
+   TurtleUiLib.Enabled = not TurtleUiLib.Enabled
+end	
 
 function library:Keybind(key)
     if keybindConnection then keybindConnection:Disconnect() end
