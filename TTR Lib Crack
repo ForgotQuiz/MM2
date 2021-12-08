@@ -10,10 +10,6 @@ local destroyed
 
 local colorPickers = {}
 
-function Lerp(a, b, c)
-    return a + ((b - a) * c)
-end
-
 local players = game:service('Players');
 local player = players.LocalPlayer;
 local mouse = player:GetMouse();
@@ -59,16 +55,6 @@ local xOffset = 20
 local uis = game:GetService("UserInputService")
 
 local keybindConnection
-
-function library:Destroy()
-    TurtleUiLib:Destroy()
-    if keybindConnection then
-        keybindConnection:Disconnect()
-    end
-end
-function library:Hide()
-   TurtleUiLib.Enabled = not TurtleUiLib.Enabled
-end	
 
 function library:Keybind(key)
     if keybindConnection then keybindConnection:Disconnect() end
