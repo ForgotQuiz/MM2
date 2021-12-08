@@ -6,10 +6,8 @@ local windows = {}
 local pastSliders = {}
 local dropdowns = {}
 local dropdownSizes = {}
-local destroyed
 
 local colorPickers = {}
-
 local players = game:service('Players');
 local player = players.LocalPlayer;
 local mouse = player:GetMouse();
